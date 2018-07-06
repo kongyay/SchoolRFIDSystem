@@ -1,0 +1,5 @@
+var firebase = require('firebase')
+require('firebase/firestore')
+var firebaseConfig = require('./firebaseConfig')
+const firebaseApp = firebase.initializeApp(firebaseConfig)
+module.exports = firebaseApp.firestore()
