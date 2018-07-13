@@ -1,6 +1,7 @@
 const state = {
   students: [{
     'id': '1000',
+    'rfid': '1999056933',
     'first_name': 'AAA',
     'last_name': 'aaa',
     'pic': 'https://placeimg.com/100/100/people',
@@ -16,6 +17,7 @@ const state = {
     }]
   }, {
     'id': '1001',
+    'rfid': '0000000000000',
     'first_name': 'BBB',
     'last_name': 'bbb',
     'pic': 'https://placeimg.com/150/150/people',
@@ -68,7 +70,8 @@ const actions = {
 const getters = {
   getStudents: state => state.students,
   getAttTable: state => state.attTable,
-  getStudent: state => id => state.students.find((s) => s.id === id)
+  getStudent: state => id => state.students.find((s) => s.id === id),
+  getStudentByRFID: state => rfid => state.students.find((s) => s.rfid === rfid)
 }
 
 export default {

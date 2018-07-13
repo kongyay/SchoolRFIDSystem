@@ -2,6 +2,7 @@
 <div class="attendance_page">
     <b-row>
         <b-col sm="6">
+          <input id="readerField" type="text" style="hidden:false" v-model="inputData" @keyup="onKeyboardInput"/>
             <b-table striped hover :items="getAttTable" :fields="attFields" v-on:row-hovered="rowHover">
                 <template slot="time" slot-scope="data">
                 {{moment(data.value).format('h:mm')}}
@@ -52,9 +53,6 @@
             </b-tabs>
         </b-col>
     </b-row>
-    <router-link tag="button" class="alt" to="/">
-              Menu
-    </router-link>
  </div>
 </template>
 
@@ -64,6 +62,7 @@ export default {
   data () {
     return {
       studentData: undefined,
+      inputData: '',
       attFields: [
         {
           key: 'id',
@@ -84,7 +83,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAttTable', 'getStudents', 'getStudent']),
+    ...mapGetters(['getAttTable', 'getStudent', 'getStudentByRFID', 'getSendSMS', 'getReaderData']),
     presentTime () {
       return this.studentData.history.filter((x) => x.status === 'present')
     },
@@ -93,12 +92,37 @@ export default {
     },
     absentTime () {
       return this.studentData.history.filter((x) => x.status === 'absent')
+    },
+    isSendSMS: {
+      get () {
+        return this.getSendSMS
+      },
+      set (value) {
+        this.setSendSMS(value)
+      }
     }
   },
   methods: {
-    ...mapActions(['checkIn']),
+    ...mapActions(['checkIn', 'setSendSMS', 'setReaderData']),
     rowHover (item, index, event) {
       this.studentData = this.getStudent(item.id)
+    },
+    onKeyboardInput () {
+      if (this.inputData.length > 9) {
+        this.setReaderData(this.inputData)
+        this.inputData = ''
+        alert(this.getReaderData)
+      }
+    }
+  },
+  watch: {
+    getReaderData () {
+      var student = this.getStudentByRFID(this.getReaderData)
+      if (student) {
+        this.checkIn(student.id)
+      } else {
+        alert('No Student:' + this.getReaderData)
+      }
     }
   }
 }

@@ -27,7 +27,7 @@ export default {
   name: 'landing-page',
   components: { SystemInformation, LogIn },
   computed: {
-    ...mapGetters(['getCounter', 'isLoggedIn'])
+    ...mapGetters(['isLoggedIn'])
   },
   methods: {
     open (link) {
