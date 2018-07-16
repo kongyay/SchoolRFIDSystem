@@ -35,6 +35,9 @@ export default {
     }
   },
   created () {
+    usbDetect.find(this.getVID, this.getPID, (err, devices) => {
+      if (devices.length > 0) { this.onReaderConnect() } else { alert('Reader is not found: ' + err) }
+    })
     usbDetect.startMonitoring()
     usbDetect.on(`add:${this.getVID}:${this.getPID}`, this.onReaderConnect)
     usbDetect.on(`remove:${this.getVID}:${this.getPID}`, this.onReaderDisconnect)

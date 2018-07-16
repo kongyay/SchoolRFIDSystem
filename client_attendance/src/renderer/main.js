@@ -16,6 +16,7 @@ import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 
 Vue.use(BootstrapVue)
+Vue.prototype.$ = $
 Vue.prototype.moment = moment
 Vue.component('icon', Icon)
 
