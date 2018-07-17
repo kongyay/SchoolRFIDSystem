@@ -7,7 +7,7 @@
           <b-form-checkbox id="checkbox_SMS" v-model="isSendSMS">
                             Auto-Send SMS for this student
                         </b-form-checkbox>
-        <div v-if="isSendSMS">This will cost a lot...</div>
+          <div v-if="isSendSMS">This will cost a lot...</div>
         </p>
         <b-button @click="logout">Sign out</b-button>
      </b-container>

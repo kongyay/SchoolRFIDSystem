@@ -10,6 +10,10 @@
     <b-navbar-nav>
       <b-nav-item to="/">Menu</b-nav-item>
       <b-nav-item to="/attendance">Attendance</b-nav-item>
+      <b-nav-item-dropdown text="Payment">
+        <b-dropdown-item to="/payment">Cashier</b-dropdown-item>
+        <b-dropdown-item to="/payment">History</b-dropdown-item>
+      </b-nav-item-dropdown>
     </b-navbar-nav>
 
     <!-- Right aligned nav items -->

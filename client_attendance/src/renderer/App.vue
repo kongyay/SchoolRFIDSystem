@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <Navbar v-if="isLoggedIn"></Navbar>
+    <vue-snotify></vue-snotify>
+
     <router-view></router-view>
   </div>
 </template>
@@ -18,7 +20,6 @@ export default {
   },
   computed: {
     ...mapGetters(['isLoggedIn', 'getVID', 'getPID'])
-
   },
   components: {
     Navbar
@@ -50,4 +51,26 @@ export default {
 
 <style>
 /* CSS */
+
+body,
+html {
+  font-family: "Source Sans Pro", sans-serif;
+  height: 100%;
+}
+
+#app {
+  overflow: hidden;
+  height: 100%;
+}
+
+#wrapper {
+  padding: 30px 40px;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at top left,
+    rgb(255, 238, 219) 40%,
+    rgba(229, 229, 229, 0.9) 100%
+  );
+}
 </style>

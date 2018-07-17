@@ -14,6 +14,10 @@ export default new Router({
     name: 'attendance',
     component: require('@/components/Attendance').default
   }, {
+    path: '/payment',
+    name: 'payment',
+    component: require('@/components/Payment').default
+  }, {
     path: '/settings',
     name: 'settings',
     component: require('@/components/Settings').default

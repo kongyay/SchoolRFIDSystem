@@ -1,10 +1,10 @@
 <template>
-<div class="attendance_page">
+<div id="wrapper">
     <b-row>
         <b-col sm="6">
           <input id="readerField" type="number" style="hidden:false" 
                         v-model="inputData" autofocus placeholder="Use Reader / Enter ID"
-                        @keyup="onKeyboardInput" @blur="onBlurInput" ></input>
+                        @keyup="onKeyboardInput" @blur="onBlurInput" />
             <b-table striped hover :items="getAttTable" :fields="attFields" v-on:row-hovered="rowHover">
                 <template slot="time" slot-scope="data">
                 {{moment(data.value).format('h:mm')}}
@@ -49,26 +49,18 @@ export default {
     ...mapGetters(['getAttTable', 'getStudent', 'getStudentByRFID', 'getSendSMS', 'getReaderData']),
     focused () {
       return document.activeElement
-    },
-    isSendSMS: {
-      get () {
-        return this.getSendSMS
-      },
-      set (value) {
-        this.setSendSMS(value)
-      }
     }
   },
   methods: {
-    ...mapActions(['checkIn', 'setSendSMS', 'setReaderData']),
+    ...mapActions(['checkIn', 'setSendSMS', 'setReaderData', 'clearReaderData']),
     rowHover (item, index, event) {
       this.studentData = this.getStudent(item.id)
     },
     onKeyboardInput (e) {
       if (this.inputData.length > 9) {
+        console.log(this.inputData)
         this.setReaderData(this.inputData)
         this.inputData = ''
-        alert(this.getReaderData)
       }
     },
     onBlurInput (e) {
@@ -79,12 +71,15 @@ export default {
   },
   watch: {
     getReaderData () {
+      if (this.getReaderData.length < 10) return
+
       var student = this.getStudentByRFID(this.getReaderData)
       if (student) {
         this.checkIn(student.id)
       } else {
         alert('No Student:' + this.getReaderData)
       }
+      this.clearReaderData()
     }
   },
   components: {StudentCard}

@@ -1,9 +1,10 @@
 const state = {
   students: [{
     'id': '1000',
-    'rfid': '1999056933',
+    'rfid': '1580079680',
     'first_name': 'AAA',
     'last_name': 'aaa',
+    'balance': 100,
     'pic': 'https://placeimg.com/100/100/people',
     'history': [{
       'time': new Date('2018-07-09T09:00:00+03:00'),
@@ -17,11 +18,16 @@ const state = {
     }]
   }, {
     'id': '1001',
-    'rfid': '0000000000000',
+    'rfid': '0030272016',
     'first_name': 'BBB',
     'last_name': 'bbb',
+    'balance': 50,
     'pic': 'https://placeimg.com/150/150/people',
-    'history': []
+    'history': [{
+      'id': '1001',
+      'time': new Date('2018-07-12T09:30:00+03:00'),
+      'status': 'late'
+    }]
   }],
   attTable: [{
     'id': '1000',
@@ -49,6 +55,13 @@ const mutations = {
       'time': new Date(),
       'status': 'present'
     })
+  },
+  CHANGE_BALANCE (state, {
+    id,
+    amount
+  }) {
+    let cs = state.students.find((s) => s.id === id)
+    cs.balance += amount
   }
 }
 
@@ -64,6 +77,16 @@ const actions = {
     commit
   }, payload) {
     commit('CHECK_IN', payload)
+    var body = {
+      id: payload,
+      status: 'present'
+    }
+    console.log(body)
+  },
+  changeBalance ({
+    commit
+  }, payload) {
+    commit('CHANGE_BALANCE', payload)
   }
 }
 

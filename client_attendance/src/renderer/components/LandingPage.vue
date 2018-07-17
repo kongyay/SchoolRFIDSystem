@@ -1,21 +1,19 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/School.png">
-    <main>
-      <b-container fluid>
+    <b-container>
+        <img id="logo" src="~@/assets/School.png">
         <div v-if="!isLoggedIn"><LogIn /></div>
-        <div v-else>
+        <div v-else id='link-buttons' >
           <b-row>
             <router-link tag="b-button" to="/attendance">
               Attendance
             </router-link>
+          </b-row>
+          <b-row>
             <b-button @click="logout">Sign out</b-button>
           </b-row>
         </div>
-        
-        
-      </b-container>
-    </main>
+    </b-container>
   </div>
 </template>
 
@@ -38,28 +36,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Source Sans Pro", sans-serif;
+  align-content: center;
 }
 
 #wrapper {
-  background: radial-gradient(
-    ellipse at top left,
-    rgb(255, 227, 194) 40%,
-    rgba(229, 229, 229, 0.9) 100%
-  );
-  height: 100vh;
-  padding: 60px 80px;
-  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 #logo {
@@ -68,14 +54,7 @@ body {
   width: 420px;
 }
 
-main {
-  display: flex;
-  justify-content: space-between;
-  border-style: solid;
-  padding: 2%;
-}
-
-main > div {
-  flex-basis: 80%;
+.link-buttons {
+  width: 90%;
 }
 </style>
