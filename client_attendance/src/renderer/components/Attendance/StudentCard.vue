@@ -33,7 +33,7 @@
                         {{moment(data.item.time).format('YYYY-MM-DD')}}
                     </template>
                     <template slot="time" slot-scope="data">
-                        {{moment(data.value).format("h:mm")}}
+                        {{moment(data.value).format('LTS')}}
                     </template>
                 </b-table>
             </b-tab>

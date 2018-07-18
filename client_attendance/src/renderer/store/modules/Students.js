@@ -29,32 +29,18 @@ const state = {
       'status': 'late'
     }]
   }],
-  attTable: [{
-    'id': '1000',
-    'time': new Date('2018-07-12T07:30:00+03:00'),
-    'status': 'present'
-  }, {
-    'id': '1001',
-    'time': new Date('2018-07-12T09:30:00+03:00'),
-    'status': 'late'
-  }]
+  attTable: []
 }
 
 const mutations = {
-  SET_HISTORY (state, histories) {
-    state.histories = histories
-  },
-  CHECK_IN (state, id) {
-    let cs = state.students.find((s) => s.id === id)
-    cs.history.push({
-      'time': new Date(),
-      'status': 'present'
-    })
-    state.attTable.push({
-      'id': id,
-      'time': new Date(),
-      'status': 'present'
-    })
+  CHECK_IN (state, {
+    index,
+    newObj
+  }) {
+    let cs = state.students[index]
+    cs.today = newObj
+    cs.history.push(newObj)
+    state.attTable.push(newObj)
   },
   CHANGE_BALANCE (state, {
     id,
@@ -66,22 +52,40 @@ const mutations = {
 }
 
 const actions = {
-  fetchHistory ({
-    commit
-  }) {
-    // do something async
-    var items = []
-    commit('SET_HISTORY', items)
-  },
   checkIn ({
     commit
-  }, payload) {
-    commit('CHECK_IN', payload)
-    var body = {
-      id: payload,
-      status: 'present'
+  }, id) {
+    let studentP = state.students.reduce((sum, s) => (s.today && s.today.status === 'present') ? sum + 1 : sum, 0)
+    let studentA = state.students.length - studentP
+    let index = state.students.findIndex((s) => s.id === id)
+    if (state.students[index].today) {
+      global.vm.$notify({
+        group: 'att',
+        type: 'error',
+        duration: 1000,
+        title: `[${id}] is either already in school or taking leave today`,
+        text: `Present: ${studentP} | Absent: ${studentA}`
+      })
+      return
     }
-    console.log(body)
+
+    let newObj = {
+      'id': id,
+      'time': new Date(),
+      'status': 'present'
+    }
+
+    global.vm.$notify({
+      group: 'att',
+      duration: 1000,
+      title: `[${id}] is present`,
+      text: `Present: ${studentP + 1} | Absent: ${studentA - 1}`
+    })
+
+    commit('CHECK_IN', {
+      index,
+      newObj
+    })
   },
   changeBalance ({
     commit

@@ -40,6 +40,7 @@ const actions = {
   logout ({
     commit
   }) {
+    global.vm.$router.push('/')
     localStorage.removeItem('token')
     commit('LOGOUT')
   }

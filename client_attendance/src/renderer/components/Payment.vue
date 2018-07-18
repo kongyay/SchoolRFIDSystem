@@ -1,10 +1,14 @@
 <template>
 <div id="wrapper">
+    <notifications position="bottom center" group="buy" />
     <b-row>
         <b-col sm="7">
           <input id="readerField" type="number" style="hidden:false" 
-                        v-model="inputData" autofocus placeholder="Product ID / Student Card ID"
+                        v-model="inputData" autofocus :placeholder="!useID ? 'Product RFID / Student Card RFID' : 'Product ID / Student ID'"
                         @keyup="onKeyboardInput" @blur="onBlurInput" />
+            <b-form-checkbox id="checkbox_ID" v-model="useID">
+                Use ID instead
+            </b-form-checkbox>
             <b-table striped hover :items="productsBuy" :fields="productFields">
                 <template slot="total" slot-scope="data">
                 {{data.item.price*data.item.amount}}
@@ -12,7 +16,7 @@
             </b-table>
         </b-col>
         <b-col sm="5">
-            <BuyerCard v-if="buyerData!==undefined" :buyerData="buyerData"/>
+            <BuyerCard v-if="buyerData" :buyerData="buyerData"/>
         </b-col>
     </b-row>
     <div class="footer">
@@ -22,7 +26,7 @@
                 <span>After Balance: {{balanceAfter()}}</span>
             </b-col>
             <b-col sm="3">
-                <b-button variant="primary" @click="showNoti">Confirm</b-button>
+                <b-button v-if="productsBuy.length>0&&buyerData" variant="primary" @click="confirmBuy">Confirm</b-button>
             </b-col>
         </b-row>
     </div>
@@ -38,6 +42,7 @@ export default {
       buyerData: undefined,
       productsBuy: [],
       inputData: '',
+      useID: false,
       productFields: [
         {
           key: 'id',
@@ -79,7 +84,7 @@ export default {
       return this.productsBuy.reduce((sum, p) => sum + p.price * p.amount, 0)
     },
     balanceAfter () {
-      return (this.buyerData) ? this.buyerData.balance + this.totalPrice() : 0
+      return (this.buyerData) ? this.buyerData.balance - this.totalPrice() : 0
     },
     onIncrease (e) {
       console.log(e.target)
@@ -99,12 +104,17 @@ export default {
         e.target.focus()
       }
     },
-    showNoti () {
-      this.$snotify.success({
-        body: 'Success Body',
-        title: 'Success Title',
-        config: {}
-      })
+    confirmBuy () {
+      let payload =
+        {
+          'buyer': this.buyerData.id,
+          'price': this.totalPrice(),
+          'time': new Date(),
+          'products': this.productsBuy
+        }
+      this.newBuy(payload)
+      this.buyerData = null
+      this.productsBuy = []
     }
   },
   watch: {
@@ -125,7 +135,11 @@ export default {
         if (student) {
           this.buyerData = student
         } else {
-          alert('Unknown ID:' + this.getReaderData)
+          this.$notify({
+            group: 'foo',
+            type: 'error',
+            title: `No Product/Student with RFID ${this.getReaderData}`
+          })
         }
       }
       this.clearReaderData()

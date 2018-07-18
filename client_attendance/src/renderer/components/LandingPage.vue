@@ -10,6 +10,11 @@
             </router-link>
           </b-row>
           <b-row>
+            <router-link tag="b-button" to="/payment">
+              Payment
+            </router-link>
+          </b-row>
+          <b-row>
             <b-button @click="logout">Sign out</b-button>
           </b-row>
         </div>

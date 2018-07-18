@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <Navbar v-if="isLoggedIn"></Navbar>
-    <vue-snotify></vue-snotify>
-
+    <notifications position="top center" group="foo" />
     <router-view></router-view>
   </div>
 </template>
@@ -29,15 +28,34 @@ export default {
     onReaderConnect (device) {
       console.log('Reader connected !')
       this.setReaderConnected(true)
+      this.$notify({
+        group: 'foo',
+        type: 'success',
+        title: `Reader connected !`
+      })
     },
     onReaderDisconnect (device) {
       console.log('Reader was removed !')
       this.setReaderConnected(false)
+      this.$notify({
+        group: 'foo',
+        type: 'error',
+        title: `Reader is not found..`,
+        text: 'You can still manually type the ID'
+      })
     }
   },
   created () {
+    if (!this.isLoggedIn) { this.$router.push('/') }
     usbDetect.find(this.getVID, this.getPID, (err, devices) => {
-      if (devices.length > 0) { this.onReaderConnect() } else { alert('Reader is not found: ' + err) }
+      if (devices.length > 0) { this.onReaderConnect() } else {
+        this.$notify({
+          group: 'foo',
+          type: 'warn',
+          title: `Reader is not found..`,
+          text: err
+        })
+      }
     })
     usbDetect.startMonitoring()
     usbDetect.on(`add:${this.getVID}:${this.getPID}`, this.onReaderConnect)

@@ -42,6 +42,16 @@ const actions = {
     commit('NEW_BUY', payload)
     var body = payload
     console.log(body)
+    let prodString = ''
+    payload.products.forEach(p => {
+      prodString += `${p.name}\t\tx${p.amount}\n`
+    })
+
+    global.vm.$notify({
+      group: 'buy',
+      title: `[${payload.buyer}] spent [${payload.price} TL]`,
+      text: prodString
+    })
   }
 }
 

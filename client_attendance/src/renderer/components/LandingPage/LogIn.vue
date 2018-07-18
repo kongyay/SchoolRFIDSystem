@@ -26,11 +26,7 @@ export default {
 
   },
   methods: {
-    ...mapActions(['login']),
-    signIn () {
-      this.increment()
-      alert('Error')
-    }
+    ...mapActions(['login'])
   }
 }
 </script>

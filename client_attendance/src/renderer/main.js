@@ -14,14 +14,13 @@ import Icon from 'vue-awesome/components/Icon'
 
 import moment from 'moment'
 import axios from 'axios'
+import Notifications from 'vue-notification'
 
-import Snotify from 'vue-snotify'
-import 'vue-snotify/styles/material.css'
+Vue.use(Notifications)
 
 Vue.use(BootstrapVue)
 Vue.component('icon', Icon)
 
-Vue.use(Snotify)
 Vue.prototype.moment = moment
 Vue.http = Vue.prototype.$http = axios
 
@@ -30,7 +29,7 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
+global.vm = new Vue({
   components: {
     App
   },
