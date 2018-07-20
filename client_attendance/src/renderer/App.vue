@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Navbar v-if="isLoggedIn"></Navbar>
-    <notifications position="top center" group="foo" />
     <router-view></router-view>
+    <notifications position="top center" group="foo" />
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import { mapGetters, mapActions } from 'vuex'
 import Navbar from './components/Navbar.vue'
 import usbDetect from 'usb-detection'
 export default {
-  name: 'client_attendance',
+  name: 'Client',
   data () {
     return {
 
@@ -77,18 +77,19 @@ html {
 }
 
 #app {
-  overflow: hidden;
-  height: 100%;
-}
-
-#wrapper {
-  padding: 30px 40px;
-  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   height: 100%;
   background: radial-gradient(
     ellipse at top left,
     rgb(255, 238, 219) 40%,
     rgba(229, 229, 229, 0.9) 100%
   );
+}
+
+#wrapper {
+  padding: 30px 40px;
+  width: 100%;
+  overflow: hidden;
 }
 </style>

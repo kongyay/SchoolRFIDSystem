@@ -45,6 +45,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import StudentCard from './Attendance/StudentCard'
 export default {
+  name: 'Attendance',
   data () {
     return {
       today: new Date(),

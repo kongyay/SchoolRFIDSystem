@@ -1,22 +1,45 @@
 <template>
   <div id="wrapper">
     <b-container>
-        <img id="logo" src="~@/assets/School.png">
-        <div v-if="!isLoggedIn"><LogIn /></div>
-        <div v-else id='link-buttons' >
-          <b-row>
-            <router-link tag="b-button" to="/attendance">
-              Attendance
-            </router-link>
-          </b-row>
-          <b-row>
-            <router-link tag="b-button" to="/payment">
-              Payment
-            </router-link>
-          </b-row>
-          <b-row>
-            <b-button @click="logout">Sign out</b-button>
-          </b-row>
+        
+        <div v-if="!isLoggedIn">
+          <b-jumbotron>
+            <template slot="header">
+              School System
+            </template>
+            <hr class="my-1">
+            <p>
+              You can contact the admin for more information
+            </p>
+          </b-jumbotron>
+          <LogIn />
+        </div>
+        <div v-else>
+          <b-jumbotron>
+            <template slot="header">
+              Welcome {{getUsername}}
+            </template>
+            <hr class="my-1">
+            <p>
+              This software is still in development and should be considered as a prototype....
+            </p>
+          </b-jumbotron>
+          <b-card-group deck class="mb-3">
+            <b-card header="Attendance System" :img-src="require('../assets/checklist.png')">
+              <b-button size='lg' variant='success' to="/attendance">
+                Attendance
+              </b-button>
+            </b-card>
+            <b-card header="Payment System" :img-src="require('../assets/cashier.jpg')">
+              <b-button size='lg' variant='primary' to="/payment">
+                Cashier
+              </b-button>
+              <b-button size='lg' variant='primary' to="/history">
+                History
+              </b-button>
+            </b-card>
+          </b-card-group>
+          
         </div>
     </b-container>
   </div>
@@ -27,10 +50,10 @@ import SystemInformation from './LandingPage/SystemInformation'
 import LogIn from './LandingPage/LogIn'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'landing-page',
+  name: 'Menu',
   components: { SystemInformation, LogIn },
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn', 'getUsername'])
   },
   methods: {
     open (link) {
@@ -56,10 +79,7 @@ export default {
 #logo {
   height: auto;
   margin-bottom: 20px;
-  width: 420px;
-}
-
-.link-buttons {
-  width: 90%;
+  width: 50%;
+  align-self: center;
 }
 </style>

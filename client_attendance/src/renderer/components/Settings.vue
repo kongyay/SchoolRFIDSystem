@@ -9,6 +9,7 @@
                         </b-form-checkbox>
           <div v-if="isSendSMS">This will cost a lot...</div>
         </p>
+        
         <b-button @click="logout">Sign out</b-button>
      </b-container>
 </template>
@@ -17,7 +18,7 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['getSendSMS', 'getReaderConnected']),
+    ...mapGetters(['getSendSMS', 'getReaderConnected', 'getLateTime']),
     isReaderConnected: {
       get () {
         return this.getReaderConnected
@@ -33,10 +34,18 @@ export default {
       set (value) {
         this.setSendSMS(value)
       }
+    },
+    lateTime: {
+      get () {
+        return this.getLateTime
+      },
+      set (value) {
+        this.setLateTime(value)
+      }
     }
   },
   methods: {
-    ...mapActions(['setSendSMS', 'setReaderConnected', 'logout'])
+    ...mapActions(['setSendSMS', 'setReaderConnected', 'logout', 'setLateTime'])
 
   }
 }

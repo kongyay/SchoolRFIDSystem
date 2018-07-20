@@ -1,6 +1,8 @@
 const state = {
-  isReaderConnected: false,
   isSendSMS: false,
+  lateTime: new Date('9:00'),
+
+  isReaderConnected: false,
   readerData: '',
   readerVID: 65535,
   readerPID: 53
@@ -50,6 +52,7 @@ const actions = {
 
 const getters = {
   getSendSMS: state => state.isSendSMS,
+  getLateTime: state => state.lateTime,
   getReaderConnected: state => state.isReaderConnected,
   getReaderData: state => state.readerData,
   getPID: state => state.readerPID,

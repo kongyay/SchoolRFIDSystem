@@ -1,9 +1,9 @@
 <template>
-    <b-navbar toggleable="md" type="dark" variant="info">
+<b-navbar id="theOnlyNav" toggleable="sm" type="dark" variant="info" sticky>
 
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-  <b-navbar-brand href="#">School RFID System | </b-navbar-brand>
+  <b-navbar-brand to="/">School RFID System | </b-navbar-brand>
 
   <b-collapse is-nav id="nav_collapse">
 
@@ -12,7 +12,7 @@
       <b-nav-item to="/attendance">Attendance</b-nav-item>
       <b-nav-item-dropdown text="Payment">
         <b-dropdown-item to="/payment">Cashier</b-dropdown-item>
-        <b-dropdown-item to="/payment">History</b-dropdown-item>
+        <b-dropdown-item to="/history">History</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-navbar-nav>
 
@@ -24,24 +24,20 @@
       </b-nav-item>
 
       <b-nav-item>
-      <b-button variant="warning" size="sm" class="my-2 my-sm-0" v-b-modal.navModal>
-        <icon v-if="getReaderConnected" name="address-card-o" class="good"></icon>
-        <icon v-else name="exclamation-triangle" class="bad"></icon>
-        <icon name="cog"></icon>
-      </b-button>
+        <b-button variant="warning" size="sm" class="my-2 my-sm-0" v-b-modal.navModal>
+          <icon v-if="getReaderConnected" name="address-card-o" class="good"></icon>
+          <icon v-else name="exclamation-triangle" class="bad"></icon>
+          <icon name="cog"></icon>
+        </b-button>
       </b-nav-item>
 
     </b-navbar-nav>
 
   </b-collapse>
 
-  <b-modal id="navModal" title="Settings" header-bg-variant="dark"
-             header-text-variant="light"
-             body-bg-variant="light"
-             body-text-variant="dark"
-             footer-bg-variant="light"
-             footer-text-variant="dark">
-      <Settings></Settings>
+  <b-modal id="navModal" title="Settings" header-bg-variant="dark" header-text-variant="light" body-bg-variant="light" body-text-variant="dark"
+    footer-bg-variant="light" footer-text-variant="dark">
+    <Settings></Settings>
   </b-modal>
 </b-navbar>
 </template>

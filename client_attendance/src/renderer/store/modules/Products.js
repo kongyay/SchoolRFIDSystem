@@ -25,6 +25,10 @@ const state = {
     'time': new Date('2018-07-12T07:30:00+03:00'),
     'products': [{
       'id': '2000',
+      'rfid': '1999056933',
+      'name': 'Snack',
+      'type': 'food',
+      'price': 3,
       'amount': 10
     }]
   }]
@@ -32,10 +36,15 @@ const state = {
 
 const mutations = {
   NEW_BUY (state, payload) {
-
+    this.sellHistory = payload
   }
 }
 const actions = {
+  setSellHistory ({
+    commit
+  }, payload) {
+
+  },
   newBuy ({
     commit
   }, payload) {

@@ -18,6 +18,10 @@ export default new Router({
     name: 'payment',
     component: require('@/components/Payment').default
   }, {
+    path: '/history',
+    name: 'histpry',
+    component: require('@/components/HistoryTable').default
+  }, {
     path: '/settings',
     name: 'settings',
     component: require('@/components/Settings').default

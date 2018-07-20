@@ -13,6 +13,11 @@
                 <template slot="total" slot-scope="data">
                 {{data.item.price*data.item.amount}}
                 </template>
+                <template slot="amount" slot-scope="data">
+                <b-button @click='onIncrease(data.index)' size="sm" variant="link"><icon name="plus-square"></icon> </b-button>
+                {{data.value}} 
+                <b-button @click='onDecrease(data.index)' size="sm" variant="link"><icon name="minus-square"></icon> </b-button>
+                </template>
             </b-table>
         </b-col>
         <b-col sm="5">
@@ -37,6 +42,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import BuyerCard from './Payment/BuyerCard'
 export default {
+  name: 'Cashier',
   data () {
     return {
       buyerData: undefined,
@@ -73,7 +79,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getProducts', 'getProduct', 'getProductByRFID', 'getSellHistory', 'getStudentByRFID', 'getReaderData']),
+    ...mapGetters(['getProducts', 'getProduct', 'getProductByRFID', 'getSellHistory', 'getStudent', 'getStudentByRFID', 'getReaderData']),
     focused () {
       return document.activeElement
     }
@@ -86,18 +92,23 @@ export default {
     balanceAfter () {
       return (this.buyerData) ? this.buyerData.balance - this.totalPrice() : 0
     },
-    onIncrease (e) {
-      console.log(e.target)
+    onIncrease (i) {
+      this.productsBuy[i].amount++
+      this.$forceUpdate()
     },
-    onDecrease (e) {
-      console.log(e.target)
+    onDecrease (i) {
+      this.productsBuy[i].amount--
+      if (this.productsBuy[i].amount <= 0) { this.productsBuy.splice(i, 1) }
+      this.$forceUpdate()
     },
     onKeyboardInput (e) {
-      if (this.inputData.length > 9) {
-        console.log(this.inputData)
-        this.setReaderData(this.inputData)
-        this.inputData = ''
+      if (!this.useID) {
+        if (this.inputData.length < 10) return
+      } else {
+        if (this.inputData.length < 4) return
       }
+      this.setReaderData(this.inputData)
+      this.inputData = ''
     },
     onBlurInput (e) {
       if (this.focused != null) {
@@ -119,8 +130,13 @@ export default {
   },
   watch: {
     getReaderData () {
-      if (this.getReaderData.length < 10) return
-      let product = this.getProductByRFID(this.getReaderData)
+      let product = null
+      if (!this.useID) {
+        if (this.getReaderData.length < 10) return
+        product = this.getProductByRFID(this.getReaderData)
+      } else {
+        if (this.getReaderData.length < 4) return
+      }
 
       if (product) {
         let index = this.productsBuy.findIndex((p) => p.id === product.id)
@@ -131,7 +147,14 @@ export default {
           this.productsBuy[index].amount += 1
         }
       } else {
-        let student = this.getStudentByRFID(this.getReaderData)
+        let student = null
+        if (!this.useID) {
+          if (this.getReaderData.length < 10) return
+          student = this.getStudentByRFID(this.getReaderData)
+        } else {
+          if (this.getReaderData.length < 4) return
+          student = this.getStudent(this.getReaderData)
+        }
         if (student) {
           this.buyerData = student
         } else {
