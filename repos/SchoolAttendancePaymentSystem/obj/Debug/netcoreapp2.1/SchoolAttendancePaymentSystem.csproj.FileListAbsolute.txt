@@ -1,0 +1,14 @@
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\bin\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.deps.json
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\bin\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.runtimeconfig.json
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\bin\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.runtimeconfig.dev.json
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\bin\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.dll
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\bin\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.pdb
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.csprojAssemblyReference.cache
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.RazorAssemblyInfo.cache
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.RazorAssemblyInfo.cs
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.AssemblyInfoInputs.cache
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.AssemblyInfo.cs
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.RazorTargetAssemblyInfo.cache
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.dll
+C:\Users\HP\source\repos\SchoolAttendancePaymentSystem\obj\Debug\netcoreapp2.1\SchoolAttendancePaymentSystem.pdb
