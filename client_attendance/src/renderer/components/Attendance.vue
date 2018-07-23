@@ -5,7 +5,7 @@
         <b-col sm="6">
           <b-row>
             <input id="readerField" type="number" style="hidden:false" 
-                        v-model="inputData" autofocus :placeholder="!useID ? 'Use Reader / Enter RFID' : 'Enter Student ID'"
+                        v-model="inputData" v-focus :placeholder="!useID ? 'Use Reader / Enter RFID' : 'Enter Student ID'"
                         @keyup="onKeyboardInput" @blur="onBlurInput" />
             <b-form-checkbox id="checkbox_ID" v-model="useID">
                 Use Student ID instead

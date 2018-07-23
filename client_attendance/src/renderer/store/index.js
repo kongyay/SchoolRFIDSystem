@@ -10,6 +10,8 @@ export default new Vuex.Store({
   modules,
   strict: process.env.NODE_ENV !== 'production',
   plugins: [
-    createPersistedState()
+    createPersistedState({
+      paths: ['User.username']
+    })
   ]
 })

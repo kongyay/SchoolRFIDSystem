@@ -5,6 +5,7 @@ const state = {
     'first_name': 'AAA',
     'last_name': 'aaa',
     'balance': 100,
+    'isSendSMS': true,
     'pic': 'https://placeimg.com/100/100/people',
     'history': [{
       'time': new Date('2018-07-09T09:00:00+03:00'),
@@ -22,6 +23,7 @@ const state = {
     'first_name': 'BBB',
     'last_name': 'bbb',
     'balance': 50,
+    'isSendSMS': false,
     'pic': 'https://placeimg.com/150/150/people',
     'history': [{
       'id': '1001',
@@ -48,6 +50,13 @@ const mutations = {
   }) {
     let cs = state.students.find((s) => s.id === id)
     cs.balance += amount
+  },
+  SET_ISSEND_SMS (state, {
+    id,
+    bool
+  }) {
+    let cs = state.students.find((s) => s.id === id)
+    cs.isSendSMS = bool
   }
 }
 
@@ -91,6 +100,11 @@ const actions = {
     commit
   }, payload) {
     commit('CHANGE_BALANCE', payload)
+  },
+  setStudentSendSMS ({
+    commit
+  }, payload) {
+    commit('SET_ISSEND_SMS', payload)
   }
 }
 
@@ -98,7 +112,8 @@ const getters = {
   getStudents: state => state.students,
   getAttTable: state => state.attTable,
   getStudent: state => id => state.students.find((s) => s.id === id),
-  getStudentByRFID: state => rfid => state.students.find((s) => s.rfid === rfid)
+  getStudentByRFID: state => rfid => state.students.find((s) => s.rfid === rfid),
+  getStudentSendSMS: state => id => state.students.find((s) => s.id === id).isSendSMS
 }
 
 export default {

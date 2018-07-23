@@ -49,12 +49,8 @@ export default {
     if (!this.isLoggedIn) { this.$router.push('/') }
     usbDetect.find(this.getVID, this.getPID, (err, devices) => {
       if (devices.length > 0) { this.onReaderConnect() } else {
-        this.$notify({
-          group: 'foo',
-          type: 'warn',
-          title: `Reader is not found..`,
-          text: err
-        })
+        this.onReaderDisconnect()
+        console.log(err)
       }
     })
     usbDetect.startMonitoring()

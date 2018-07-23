@@ -1,6 +1,10 @@
 const state = {
   isSendSMS: false,
-  lateTime: new Date('9:00'),
+  lateTime: {
+    hh: '9',
+    mm: '00',
+    a: 'am'
+  },
 
   isReaderConnected: false,
   readerData: '',
@@ -20,6 +24,9 @@ const mutations = {
   },
   CLEAR_READER_DATA (state) {
     state.readerData = ''
+  },
+  SET_LATETIME (state, data) {
+    state.lateTime = data
   }
 }
 
@@ -47,7 +54,14 @@ const actions = {
   }) {
     // do something async
     commit('CLEAR_READER_DATA')
+  },
+  setLateTime ({
+    commit
+  }, data) {
+    // do something async
+    commit('SET_LATETIME', data)
   }
+
 }
 
 const getters = {

@@ -5,11 +5,12 @@
         </p>
         <p>
           <b-form-checkbox id="checkbox_SMS" v-model="isSendSMS">
-                            Auto-Send SMS for this student
-                        </b-form-checkbox>
-          <div v-if="isSendSMS">This will cost a lot...</div>
+                            Auto-Send SMS from this computer
+          </b-form-checkbox>
         </p>
-        
+        <p>
+          <vue-timepicker format="hh:mm A" v-model="lateTime"></vue-timepicker>
+        </p>
         <b-button @click="logout">Sign out</b-button>
      </b-container>
 </template>
@@ -17,6 +18,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  data: () => {
+    return {
+
+    }
+  },
   computed: {
     ...mapGetters(['getSendSMS', 'getReaderConnected', 'getLateTime']),
     isReaderConnected: {

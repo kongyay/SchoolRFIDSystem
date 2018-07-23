@@ -38,17 +38,21 @@
                 </b-table>
             </b-tab>
             <b-tab title="Actions">
-                <b-button @click="checkIn(studentData.id)">Manual Check</b-button>
+              <b-form-checkbox id="checkbox_Student_SMS" v-model="isStudentSendSMS">
+                            Auto-Send SMS for this student
+              </b-form-checkbox>
+              <b-button @click="checkIn(studentData.id)">Manual Check</b-button>
             </b-tab>
         </b-tabs>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: [ 'studentData' ],
   computed: {
+    ...mapGetters(['getStudentSendSMS']),
     presentTime () {
       return this.studentData.history.filter((x) => x.status === 'present')
     },
@@ -57,10 +61,19 @@ export default {
     },
     absentTime () {
       return this.studentData.history.filter((x) => x.status === 'absent')
+    },
+    isStudentSendSMS: {
+      get () {
+        return this.getStudentSendSMS(this.studentData.id)
+      },
+      set (value) {
+        console.log(value)
+        this.setStudentSendSMS({'id': this.studentData.id, 'bool': value})
+      }
     }
   },
   methods: {
-    ...mapActions([ 'checkIn' ])
+    ...mapActions([ 'checkIn', 'setStudentSendSMS' ])
   }
 }
 </script>
