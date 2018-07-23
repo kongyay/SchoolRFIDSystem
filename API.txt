@@ -1,0 +1,98 @@
+GENERAL =============================================
+GET /students
+return all student data
+....................................................
+GET /student/{id}
+ex: /student/100 = return all data of student with ID: 100
+....................................................
+POST /student/setting
+Payload = {
+    id: String,
+    property: String,
+    value: Depends on property
+}
+ex: 
+Payload = {
+    id: "100",
+    property: "name",
+    value: "Abcde"
+}
+change name of student with ID: 100 to "Abcde"
+
+
+ATTENDANCE ==========================================
+POST /attendance/check
+Payload = {
+    id: String
+}
+ex: 
+Payload = {
+    id: "100"
+}
+set status of student with ID: 100 to present, add to history
+.................................................
+POST /attendance/cancel
+Payload = {
+    id: String
+}
+ex: 
+Payload = {
+    id: "100"
+}
+revert the status of student with ID: 100 (aka. set to noting or absent), remove history
+.................................................
+POST /attendance/late
+Payload = {
+    id: String
+}
+ex: 
+Payload = {
+    id: "100"
+}
+set status of student with ID: 100 to late, add history
+
+
+PAYMENT =============================================
+POST /payment/pay
+Payload = {
+    id: String,
+    total: Number,
+    time: Date,
+    products: [
+        {
+            product_id: String,
+            amount: Number
+        }
+    ]
+}
+ex:
+Payload = {
+    id: "100",
+    total: 50,
+    time: Date('2018-07-12T07:30:00+03:00'),
+    products: [
+        {
+            product_id: 01, 
+            amount: 8 <---- (price=5x8pcs.=40)
+        },
+        {
+            product_id: 02,
+            amount: 1 <---- (price=10x1pc=10)
+        }
+    ]
+}
+Student paid for something, Decrease his/her balance, save this to history
+..................................................
+POST /payment/topup
+Payload = {
+    id: String,
+    total: Number,
+    time: String,
+}
+ex:
+Payload = {
+    id: "100",
+    total: 50,
+    time: "2018-07-12T07:30:00+03:00"
+}
+Student top his/her card up, Increase his/her balance, save this to history
