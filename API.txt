@@ -39,7 +39,7 @@ ex:
 Payload = {
     id: "100"
 }
-revert the status of student with ID: 100 (aka. set to noting or absent), remove history
+revert the status of student with ID: 100 (aka. set to nothing or absent), remove history
 .................................................
 POST /attendance/late
 Payload = {
@@ -96,3 +96,68 @@ Payload = {
     time: "2018-07-12T07:30:00+03:00"
 }
 Student top his/her card up, Increase his/her balance, save this to history
+
+
+STUDENT OBJECT Ex. ==============================
+students: [
+    {
+        'id': '1000',
+        'rfid': '1580079680',
+        'first_name': 'AAA',
+        'last_name': 'aaa',
+        'balance': 100,
+        'isSendSMS': true,
+        'pic': 'https://placeimg.com/100/100/people',
+        'history': [{
+        'time': new Date('2018-07-09T09:00:00+03:00'),
+        'status': 'late'
+        }, {
+        'time': new Date('2018-07-10T07:00:00+03:00'),
+        'status': 'present'
+        }, {
+        'time': new Date('2018-07-11T08:00:00+03:00'),
+        'status': 'absent'
+        }]
+    }
+  , 
+    {
+        'id': '1001',
+        'rfid': '0030272016',
+        'first_name': 'BBB',
+        'last_name': 'bbb',
+        'balance': 50,
+        'isSendSMS': false,
+        'pic': 'https://placeimg.com/150/150/people',
+        'history': [{
+        'id': '1001',
+        'time': new Date('2018-07-12T09:30:00+03:00'),
+        'status': 'late'
+    }
+
+]
+
+products: [{
+    'id': '2000',
+    'rfid': '1999056933',
+    'name': 'Snack',
+    'type': 'food',
+    'price': 3
+  }, {
+    'id': '2001',
+    'rfid': '1111111111',
+    'name': 'Drink',
+    'type': 'food',
+    'price': 3
+  }, {
+    'id': '9999',
+    'rfid': '0000000000',
+    'name': 'Top-up card',
+    'type': 'topup',
+    'price': 100
+}]
+
+user: {
+    'username': 'aabbcc',
+    'password': 'testtest',
+    'type': 'admin'
+}
