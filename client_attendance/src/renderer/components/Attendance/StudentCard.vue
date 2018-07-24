@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="StudentCard">
         <div class="card hovercard" >
             <div class="card-background">
                 <img class="card-bkimg" alt="" :src="studentData.pic">
@@ -11,7 +11,7 @@
             <div class="card-info"> <span class="card-title">{{studentData.first_name}} {{studentData.last_name}}</span>
             </div>
         </div>
-        <b-tabs>
+        <b-tabs id='StudentTab'>
             <b-tab title="Profile" active>
                 <b-row>
                     <b-col sm="5">First Name: </b-col>
@@ -21,6 +21,7 @@
                     <b-col sm="5">Last Name: </b-col>
                     <b-col sm="7">{{studentData.last_name}}</b-col>
                 </b-row>
+                <hr>
                 <b-progress :max="studentData.history.length" class="mb-3">
                     <b-progress-bar variant="success" :value="presentTime.length" show-value animated></b-progress-bar>
                     <b-progress-bar variant="warning" :value="lateTime.length" show-value></b-progress-bar>
@@ -37,11 +38,13 @@
                     </template>
                 </b-table>
             </b-tab>
-            <b-tab title="Actions">
+            <b-tab title="Actions">  
+                <b-button @click="checkIn(studentData.id)">Manual Check</b-button>
+                <b-button @click="">Take Leave</b-button>
+              <hr>
               <b-form-checkbox id="checkbox_Student_SMS" v-model="isStudentSendSMS">
                             Auto-Send SMS for this student
               </b-form-checkbox>
-              <b-button @click="checkIn(studentData.id)">Manual Check</b-button>
             </b-tab>
         </b-tabs>
     </div>
@@ -79,6 +82,13 @@ export default {
 </script>
 
 <style scoped>
+#StudentCard {
+  width: 100%;
+}
+#StudentTab {
+  background-color: rgba(255, 255, 255, 0.568);
+  padding: 2px;
+}
 /* USER PROFILE PAGE */
 .card {
   margin-top: 20px;

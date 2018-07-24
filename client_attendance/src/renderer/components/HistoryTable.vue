@@ -1,6 +1,7 @@
 <template>
 <div class="wrapper">
-    <b-input type="text" placeholder="Search.." v-model="searchTxt"></b-input>
+    <icon id="page-icon" name="history" scale=2></icon>
+    <b-input type="text" id="searchField" placeholder="Search.." v-model="searchTxt" v-focus></b-input>
     <b-table striped hover :items="displaySellHistory" :fields="historyFields" small>
         <template slot="time" slot-scope="data">
             {{moment(data.value).format('LTS')}}
@@ -98,3 +99,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#searchField {
+  width: 100%;
+  margin-left: 40px;
+}
+#page-icon {
+  position: absolute;
+  float: left;
+  left: 5px;
+}
+</style>
