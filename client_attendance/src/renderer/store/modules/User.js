@@ -1,3 +1,5 @@
+import apiUser from '@/services/api-user'
+
 const state = {
   isLoggedIn: this.username !== '',
   username: ''
@@ -42,19 +44,24 @@ const mutations = {
 }
 
 const actions = {
-  login ({
+  async login ({
     commit
   }, creds) {
     commit('LOGIN') // show spinner
     console.log('login...', creds)
-    return new Promise(resolve => {
-      setTimeout(() => {
-        // localStorage.setItem('token', creds.username)
-        commit('SET_USERNAME', creds.username)
-        commit('LOGIN_SUCCESS', creds)
-        resolve()
-      }, 1000)
-    })
+    let userData = await apiUser.getAuth(creds.username, creds.password)
+    console.log(userData)
+    if (userData) {
+      commit('SET_USERNAME', creds.username)
+      commit('LOGIN_SUCCESS', creds)
+    } else {
+      global.vm.$notify({
+        group: 'foo',
+        title: 'Error signing in',
+        text: 'The username and Password combination is not correct!',
+        type: 'error'
+      })
+    }
   },
   logout ({
     commit
