@@ -2,12 +2,16 @@ import apiUser from '@/services/api-user'
 
 const state = {
   isLoggedIn: this.username !== '',
-  username: ''
+  username: '',
+  userRole: 'staff'
 }
 
 const mutations = {
   SET_USERNAME (state, username) {
     state.username = username
+  },
+  SET_USERROLE (state, role) {
+    state.userRole = role
   },
   LOGIN (state) {
     state.pending = true
@@ -49,16 +53,26 @@ const actions = {
   }, creds) {
     commit('LOGIN') // show spinner
     console.log('login...', creds)
-    let userData = await apiUser.getAuth(creds.username, creds.password)
-    console.log(userData)
-    if (userData) {
-      commit('SET_USERNAME', creds.username)
-      commit('LOGIN_SUCCESS', creds)
-    } else {
+    try {
+      let userData = await apiUser.getAuth(creds.username, creds.password)
+      console.log(userData)
+      if (userData) {
+        commit('SET_USERNAME', creds.username)
+        commit('SET_USERROLE', userData.role)
+        commit('LOGIN_SUCCESS', creds)
+      } else {
+        global.vm.$notify({
+          group: 'foo',
+          title: 'Error signing in',
+          text: 'The username and Password combination is not correct!',
+          type: 'error'
+        })
+      }
+    } catch (e) {
       global.vm.$notify({
         group: 'foo',
         title: 'Error signing in',
-        text: 'The username and Password combination is not correct!',
+        text: 'Cannot connect to the server',
         type: 'error'
       })
     }
@@ -75,7 +89,8 @@ const actions = {
 
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
-  getUsername: state => state.username
+  getUsername: state => state.username,
+  getUserRole: state => state.userRole
 }
 
 export default {

@@ -9,8 +9,7 @@ export default {
 
       return user.data
     } catch (error) {
-      console.log(error)
-      return (null)
+      throw (error)
     }
   }
 }

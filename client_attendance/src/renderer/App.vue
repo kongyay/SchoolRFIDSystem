@@ -8,7 +8,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Navbar from './components/Navbar.vue'
+import Navbar from './components/General/Navbar.vue'
 import usbDetect from 'usb-detection'
 export default {
   name: 'Client',

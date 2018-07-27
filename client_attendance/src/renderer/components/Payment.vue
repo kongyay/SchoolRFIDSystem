@@ -190,7 +190,7 @@ export default {
   bottom: 0;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.514);
-  color: rgb(224, 111, 111);
+  color: rgb(255, 255, 255);
 }
 .footer b-button {
   padding: 1px;
