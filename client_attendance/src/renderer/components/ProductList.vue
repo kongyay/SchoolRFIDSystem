@@ -8,12 +8,12 @@
             </template>
           
             <template slot="edit" slot-scope="data">
-              <b-button v-if="getUserRole=='admin'" size="sm" class="mr-2" @click='setModal(data.item)' v-b-modal.editModal>
+              <b-button v-if="getUserRole==='admin'" size="sm" class="mr-2" @click='setModal(data.item)' v-b-modal.editModal>
                 Edit
               </b-button>
             </template>
       </b-table>
-      <b-modal id="editModal" title="Edit">
+      <b-modal id="editModal" title="Edit" hide-footer>
         <b-form-group horizontal label="Name" class="mb-0">
             <b-form-input v-model="edit_name"/>
         </b-form-group>

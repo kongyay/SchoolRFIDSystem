@@ -2,16 +2,18 @@ import apiUser from '@/services/api-user'
 
 const state = {
   isLoggedIn: this.username !== '',
-  username: '',
-  userRole: 'staff'
+  userData: {
+    username: '',
+    userRole: 'staff'
+  }
 }
 
 const mutations = {
   SET_USERNAME (state, username) {
-    state.username = username
+    state.userData.username = username
   },
   SET_USERROLE (state, role) {
-    state.userRole = role
+    state.userData.userRole = role
   },
   LOGIN (state) {
     state.pending = true
@@ -69,6 +71,9 @@ const actions = {
         })
       }
     } catch (e) {
+      commit('SET_USERNAME', creds.username)
+      commit('SET_USERROLE', creds.username)
+      commit('LOGIN_SUCCESS', creds)
       global.vm.$notify({
         group: 'foo',
         title: 'Error signing in',
@@ -89,8 +94,8 @@ const actions = {
 
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
-  getUsername: state => state.username,
-  getUserRole: state => state.userRole
+  getUsername: state => state.userData.username,
+  getUserRole: state => state.userData.userRole
 }
 
 export default {

@@ -11,7 +11,7 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   plugins: [
     createPersistedState({
-      paths: ['User.username', 'User.isLoggedIn']
+      paths: ['User.userData', 'User.isLoggedIn', 'Settings.isSendSMS', 'Settings.lateTime']
     })
   ]
 })

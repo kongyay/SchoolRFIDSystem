@@ -50,7 +50,7 @@ export default {
     usbDetect.find(this.getVID, this.getPID, (err, devices) => {
       if (devices.length > 0) { this.onReaderConnect() } else {
         this.onReaderDisconnect()
-        console.log(err)
+        console.log('NO READER', err)
       }
     })
     usbDetect.startMonitoring()

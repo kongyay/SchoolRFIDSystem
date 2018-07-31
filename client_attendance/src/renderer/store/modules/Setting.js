@@ -1,9 +1,8 @@
 const state = {
   isSendSMS: false,
   lateTime: {
-    hh: '9',
-    mm: '00',
-    a: 'am'
+    HH: '09',
+    mm: '00'
   },
 
   isReaderConnected: false,

@@ -32,8 +32,9 @@
 
   </b-collapse>
 
-  <b-modal id="navModal" title="Settings" header-bg-variant="dark" header-text-variant="light" body-bg-variant="light" body-text-variant="dark"
-    footer-bg-variant="light" footer-text-variant="dark">
+  <b-modal id="navModal" title="Settings" header-bg-variant="dark" 
+    header-text-variant="light" body-bg-variant="light" body-text-variant="dark"
+    footer-bg-variant="light" footer-text-variant="dark" hide-footer>
     <Settings></Settings>
   </b-modal>
 </b-navbar>

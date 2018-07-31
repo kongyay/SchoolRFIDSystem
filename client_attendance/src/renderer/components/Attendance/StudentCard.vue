@@ -1,5 +1,5 @@
 <template>
-    <div id="StudentCard">
+    <div id="StudentCard" v-if="studentData">
         <div class="card hovercard" >
             <div class="card-background">
                 <img class="card-bkimg" alt="" :src="studentData.pic">
@@ -70,7 +70,6 @@ export default {
         return this.getStudentSendSMS(this.studentData.id)
       },
       set (value) {
-        console.log(value)
         this.setStudentSendSMS({'id': this.studentData.id, 'bool': value})
       }
     }

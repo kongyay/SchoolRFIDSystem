@@ -9,7 +9,7 @@
           </b-form-checkbox>
         </p>
         <p>
-          <vue-timepicker format="hh:mm A" v-model="lateTime"></vue-timepicker>
+          <vue-timepicker v-model="lateTime"></vue-timepicker>
         </p>
         <b-button @click="logout">Sign out</b-button>
      </b-container>

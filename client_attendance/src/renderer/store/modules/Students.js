@@ -62,7 +62,8 @@ const mutations = {
 
 const actions = {
   checkIn ({
-    commit
+    commit,
+    rootGetters
   }, id) {
     let studentP = state.students.reduce((sum, s) => (s.today && s.today.status === 'present') ? sum + 1 : sum, 0)
     let studentA = state.students.length - studentP
@@ -78,10 +79,16 @@ const actions = {
       return
     }
 
+    let currentTime = new Date()
     let newObj = {
       'id': id,
-      'time': new Date(),
+      'time': currentTime,
       'status': 'present'
+    }
+
+    if (currentTime.getHours() > parseInt(rootGetters.getLateTime.HH) &&
+      currentTime.getMinutes() > parseInt(rootGetters.getLateTime.mm)) {
+      newObj.status = 'late'
     }
 
     global.vm.$notify({

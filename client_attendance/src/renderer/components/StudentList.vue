@@ -2,16 +2,21 @@
     <div class='wrapper'>
         <icon id="page-icon" name="user" scale=2></icon>
         <b-input type="text" id="searchField" placeholder="Search.." v-model="searchTxt" v-focus></b-input>
-        <b-table striped hover :items="displayStudents" :fields="attFields" v-on:row-hovered="rowHover">
+        <b-table striped hover :items="displayStudents" :fields="attFields">
             <template slot="pic" slot-scope="data">
               <img alt="" :src="data.value">
             </template>
             <template slot="edit" slot-scope="data">
-              <b-button size="sm" @click="" class="mr-2">
-                Edit
+              <b-button v-if="getUserRole==='admin'" size="sm" class="mr-2" @click='setModal(data.item)' v-b-modal.cardModal>
+                More/Edit
               </b-button>
             </template>
         </b-table>
+
+        <b-modal  id="cardModal" title="Student Profile" hide-footer>
+          <student-card :studentData="studentData"></student-card>  
+        </b-modal>
+
     </div>
 </template>
 
@@ -22,6 +27,10 @@ export default {
   data () {
     return {
       searchTxt: '',
+      edit_id: '',
+      edit_name: '',
+      edit_price: 0,
+      edit_type: '',
       studentData: undefined,
       attFields: [
         {
@@ -51,14 +60,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getStudent', 'getStudents', 'getStudentByRFID', 'getReaderData']),
+    ...mapGetters(['getStudent', 'getStudents', 'getUserRole', 'getStudentByRFID', 'getReaderData']),
     displayStudents () {
       return this.getStudents.filter((e) => e.first_name.toLowerCase().match(this.searchTxt.toLowerCase()) || e.last_name.match(this.searchTxt.toLowerCase()))
     }
   },
   methods: {
-    rowHover (item, index, event) {
-      this.studentData = this.getStudent(item.id)
+    setModal (selectedStudent) {
+      this.$data.studentData = selectedStudent
     }
   },
   components: {StudentCard}
