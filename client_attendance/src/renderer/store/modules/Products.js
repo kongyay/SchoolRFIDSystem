@@ -46,7 +46,8 @@ const actions = {
 
   },
   newBuy ({
-    commit
+    commit,
+    dispatch
   }, payload) {
     commit('NEW_BUY', payload)
     var body = payload
@@ -54,6 +55,11 @@ const actions = {
     let prodString = ''
     payload.products.forEach(p => {
       prodString += `${p.name}\t\tx${p.amount}\n`
+    })
+
+    dispatch('changeBalance', {
+      id: payload.buyer,
+      amount: -payload.price
     })
 
     global.vm.$notify({

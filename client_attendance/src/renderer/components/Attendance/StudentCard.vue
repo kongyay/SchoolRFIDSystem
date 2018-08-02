@@ -40,7 +40,7 @@
             </b-tab>
             <b-tab title="Actions">  
                 <b-button @click="checkIn(studentData.id)">Manual Check</b-button>
-                <b-button @click="">Take Leave</b-button>
+                <b-button @click="takeLeave(studentData.id)">Take Leave</b-button>
               <hr>
               <b-form-checkbox id="checkbox_Student_SMS" v-model="isStudentSendSMS">
                             Auto-Send SMS for this student
@@ -75,7 +75,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([ 'checkIn', 'setStudentSendSMS' ])
+    ...mapActions([ 'checkIn', 'takeLeave', 'setStudentSendSMS' ])
   }
 }
 </script>

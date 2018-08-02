@@ -11,7 +11,7 @@
             <div class="card-info"> <span class="card-title">{{buyerData.first_name}} {{buyerData.last_name}}</span>
             </div>
         </div>
-        <b-tabs id='BuyerTab>
+        <b-tabs id='BuyerTab'>
             <b-tab title="Profile" active>
                 <b-row>
                     <b-col sm="5">First Name: </b-col>

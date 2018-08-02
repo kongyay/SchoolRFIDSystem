@@ -138,6 +138,7 @@ export default {
         product = this.getProductByRFID(this.getReaderData)
       } else {
         if (this.getReaderData.length < 4) return
+        product = this.getProduct(this.getReaderData)
       }
 
       if (product) {
