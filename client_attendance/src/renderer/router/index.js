@@ -22,9 +22,13 @@ export default new Router({
     name: 'histpry',
     component: require('@/components/HistoryTable').default
   }, {
-    path: '/settings',
-    name: 'settings',
-    component: require('@/components/Settings').default
+    path: '/student_list',
+    name: 'student_list',
+    component: require('@/components/StudentList').default
+  }, {
+    path: '/product_list',
+    name: 'product_list',
+    component: require('@/components/ProductList').default
   },
   {
     path: '*',

@@ -1,3 +1,6 @@
+import {
+  SMS
+} from '../../services/SMS'
 const state = {
   students: [{
     'id': '1000',
@@ -59,10 +62,10 @@ const mutations = {
     cs.isSendSMS = bool
   }
 }
-
 const actions = {
-  checkIn ({
-    commit
+  async checkIn ({
+    commit,
+    rootGetters
   }, id) {
     let studentP = state.students.reduce((sum, s) => (s.today && s.today.status === 'present') ? sum + 1 : sum, 0)
     let studentA = state.students.length - studentP
@@ -78,10 +81,16 @@ const actions = {
       return
     }
 
+    let currentTime = new Date()
     let newObj = {
       'id': id,
-      'time': new Date(),
+      'time': currentTime,
       'status': 'present'
+    }
+
+    if (currentTime.getHours() > parseInt(rootGetters.getLateTime.HH) &&
+      currentTime.getMinutes() > parseInt(rootGetters.getLateTime.mm)) {
+      newObj.status = 'late'
     }
 
     global.vm.$notify({
@@ -89,6 +98,40 @@ const actions = {
       duration: 1000,
       title: `[${id}] is present`,
       text: `Present: ${studentP + 1} | Absent: ${studentA - 1}`
+    })
+
+    let res = await SMS.send(`${state.students[index].first_name} (${id}) has arrived school at ${currentTime.toLocaleTimeString()}.`, '5541415984')
+    console.log(res)
+
+    commit('CHECK_IN', {
+      index,
+      newObj
+    })
+  },
+  takeLeave ({
+    commit
+  }, id) {
+    let index = state.students.findIndex((s) => s.id === id)
+    if (state.students[index].today) {
+      global.vm.$notify({
+        group: 'att',
+        type: 'error',
+        duration: 1000,
+        title: `[${id}] is either already in school or taking leave today`
+      })
+      return
+    }
+
+    let newObj = {
+      'id': id,
+      'time': new Date(),
+      'status': 'leave'
+    }
+
+    global.vm.$notify({
+      group: 'att',
+      duration: 1000,
+      title: `[${id}] is taking leave today`
     })
 
     commit('CHECK_IN', {

@@ -4,9 +4,11 @@
     <b-row>
         <b-col sm="6">
           <b-row>
+            <icon id="page-icon" name="check-square-o" scale=2></icon>
             <input id="readerField" type="number" style="hidden:false" 
                         v-model="inputData" v-focus :placeholder="!useID ? 'Use Reader / Enter RFID' : 'Enter Student ID'"
                         @keyup="onKeyboardInput" @blur="onBlurInput" />
+            &thinsp;&thinsp;&thinsp;
             <b-form-checkbox id="checkbox_ID" v-model="useID">
                 Use Student ID instead
             </b-form-checkbox>
@@ -130,5 +132,10 @@ export default {
 <style scoped>
 #readerField {
   width: 100%;
+  margin-left: 40px;
+}
+#page-icon {
+  position: absolute;
+  float: left;
 }
 </style>

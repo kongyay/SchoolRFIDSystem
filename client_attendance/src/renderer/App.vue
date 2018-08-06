@@ -8,7 +8,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Navbar from './components/Navbar.vue'
+import Navbar from './components/General/Navbar.vue'
 import usbDetect from 'usb-detection'
 export default {
   name: 'Client',
@@ -50,7 +50,7 @@ export default {
     usbDetect.find(this.getVID, this.getPID, (err, devices) => {
       if (devices.length > 0) { this.onReaderConnect() } else {
         this.onReaderDisconnect()
-        console.log(err)
+        console.log('NO READER', err)
       }
     })
     usbDetect.startMonitoring()

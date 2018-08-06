@@ -3,9 +3,11 @@
     <notifications position="bottom center" group="buy" />
     <b-row>
         <b-col sm="7">
+          <icon id="page-icon" name="money" scale=1.8></icon>
           <input id="readerField" type="number" style="hidden:false" 
                         v-model="inputData" v-focus :placeholder="!useID ? 'Product RFID / Student Card RFID' : 'Product ID / Student ID'"
                         @keyup="onKeyboardInput" @blur="onBlurInput" />
+            &thinsp;&thinsp;&thinsp;
             <b-form-checkbox id="checkbox_ID" v-model="useID">
                 Use ID instead
             </b-form-checkbox>
@@ -136,6 +138,7 @@ export default {
         product = this.getProductByRFID(this.getReaderData)
       } else {
         if (this.getReaderData.length < 4) return
+        product = this.getProduct(this.getReaderData)
       }
 
       if (product) {
@@ -175,6 +178,11 @@ export default {
 <style scoped>
 #readerField {
   width: 100%;
+  margin-left: 40px;
+}
+#page-icon {
+  position: absolute;
+  float: left;
 }
 .footer {
   padding: 1px;

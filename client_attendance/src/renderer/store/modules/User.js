@@ -1,11 +1,19 @@
+import apiUser from '@/services/api-user'
+
 const state = {
   isLoggedIn: this.username !== '',
-  username: ''
+  userData: {
+    username: '',
+    userRole: 'staff'
+  }
 }
 
 const mutations = {
   SET_USERNAME (state, username) {
-    state.username = username
+    state.userData.username = username
+  },
+  SET_USERROLE (state, role) {
+    state.userData.userRole = role
   },
   LOGIN (state) {
     state.pending = true
@@ -42,19 +50,37 @@ const mutations = {
 }
 
 const actions = {
-  login ({
+  async login ({
     commit
   }, creds) {
     commit('LOGIN') // show spinner
     console.log('login...', creds)
-    return new Promise(resolve => {
-      setTimeout(() => {
-        // localStorage.setItem('token', creds.username)
+    try {
+      let userData = await apiUser.getAuth(creds.username, creds.password)
+      console.log(userData)
+      if (userData) {
         commit('SET_USERNAME', creds.username)
+        commit('SET_USERROLE', userData.role)
         commit('LOGIN_SUCCESS', creds)
-        resolve()
-      }, 1000)
-    })
+      } else {
+        global.vm.$notify({
+          group: 'foo',
+          title: 'Error signing in',
+          text: 'The username and Password combination is not correct!',
+          type: 'error'
+        })
+      }
+    } catch (e) {
+      commit('SET_USERNAME', creds.username)
+      commit('SET_USERROLE', creds.username)
+      commit('LOGIN_SUCCESS', creds)
+      global.vm.$notify({
+        group: 'foo',
+        title: 'Error signing in',
+        text: 'Cannot connect to the server',
+        type: 'error'
+      })
+    }
   },
   logout ({
     commit
@@ -68,7 +94,8 @@ const actions = {
 
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
-  getUsername: state => state.username
+  getUsername: state => state.userData.username,
+  getUserRole: state => state.userData.userRole
 }
 
 export default {

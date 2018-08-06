@@ -11,7 +11,7 @@
             <div class="card-info"> <span class="card-title">{{buyerData.first_name}} {{buyerData.last_name}}</span>
             </div>
         </div>
-        <b-tabs>
+        <b-tabs id='BuyerTab'>
             <b-tab title="Profile" active>
                 <b-row>
                     <b-col sm="5">First Name: </b-col>
@@ -21,6 +21,7 @@
                     <b-col sm="5">Last Name: </b-col>
                     <b-col sm="7">{{buyerData.last_name}}</b-col>
                 </b-row>
+                <hr>
                 <b-row>
                     <b-col sm="5">Balance: </b-col>
                     <b-col sm="7">{{buyerData.balance}} TL</b-col>
@@ -64,6 +65,10 @@ export default {
 <style scoped>
 #BuyerCard {
   width: 100%;
+}
+#BuyerTab {
+  background-color: rgba(255, 255, 255, 0.568);
+  padding: 2px;
 }
 /* USER PROFILE PAGE */
 .card {

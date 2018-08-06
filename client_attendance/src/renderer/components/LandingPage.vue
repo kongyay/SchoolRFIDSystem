@@ -28,14 +28,20 @@
             <b-card header="Attendance System" :img-src="require('../assets/checklist.png')">
               <b-button size='lg' variant='success' to="/attendance">
                 Attendance
+              </b-button><hr>
+              <b-button size='sm' variant='success' to="/student_list">
+                Student List
               </b-button>
             </b-card>
             <b-card header="Payment System" :img-src="require('../assets/cashier.jpg')">
               <b-button size='lg' variant='primary' to="/payment">
                 Cashier
-              </b-button>
-              <b-button size='lg' variant='primary' to="/history">
+              </b-button><hr>
+              <b-button size='sm' variant='primary' to="/history">
                 History
+              </b-button>
+              <b-button size='sm' variant='primary' to="/product_list">
+                Product List
               </b-button>
             </b-card>
           </b-card-group>
