@@ -97,3 +97,5 @@ D:\Work\foniva\SchoolRFIDSystem\repos\PleaseWork\WebApplication2\obj\Debug\WebAp
 D:\Work\foniva\SchoolRFIDSystem\repos\PleaseWork\WebApplication2\obj\Debug\WebApplication2.csproj.CopyComplete
 D:\Work\foniva\SchoolRFIDSystem\repos\PleaseWork\WebApplication2\obj\Debug\WebApplication2.dll
 D:\Work\foniva\SchoolRFIDSystem\repos\PleaseWork\WebApplication2\obj\Debug\WebApplication2.pdb
+C:\Users\HP\Desktop\SchoolRFIDSystem\repos\PleaseWork\WebApplication2\obj\Debug\WebApplication2.csprojAssemblyReference.cache
+C:\Users\HP\Desktop\SchoolRFIDSystem\repos\PleaseWork\WebApplication2\obj\Debug\WebApplication2.csproj.CoreCompileInputs.cache
