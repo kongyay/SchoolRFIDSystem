@@ -26,6 +26,10 @@ export default new Router({
     name: 'student_list',
     component: require('@/components/StudentList').default
   }, {
+    path: '/student_analytics',
+    name: 'student_analytics',
+    component: require('@/components/AttendanceAnalytics').default
+  }, {
     path: '/product_list',
     name: 'product_list',
     component: require('@/components/ProductList').default

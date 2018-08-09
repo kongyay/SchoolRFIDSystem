@@ -22,6 +22,19 @@
                     <b-col sm="7">{{studentData.last_name}}</b-col>
                 </b-row>
                 <hr>
+                <b-row>
+                    <b-col sm="5">Grade: </b-col>
+                    <b-col sm="7">{{studentData.grade}}</b-col>
+                </b-row>
+                <b-row>
+                    <b-col sm="5">Class: </b-col>
+                    <b-col sm="7">{{studentData.class}}</b-col>
+                </b-row>
+                <b-row>
+                    <b-col sm="5">Teacher: </b-col>
+                    <b-col sm="7">{{studentData.teacher}}</b-col>
+                </b-row>
+                <hr>
                 <b-progress :max="studentData.history.length" class="mb-3">
                     <b-progress-bar variant="success" :value="presentTime.length" show-value animated></b-progress-bar>
                     <b-progress-bar variant="warning" :value="lateTime.length" show-value></b-progress-bar>

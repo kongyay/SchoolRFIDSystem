@@ -1,7 +1,7 @@
 <template>
     <div class='wrapper'>
-        <icon id="page-icon" name="user" scale=2></icon>
-        <b-input type="text" id="searchField" placeholder="Search.." v-model="searchTxt" v-focus></b-input>
+        <div><icon id="page-icon" name="user" scale=2></icon>
+        <b-input type="text" id="searchField" placeholder="Search.." v-model="searchTxt" v-focus></b-input></div>
         <b-table striped hover :items="displayStudents" :fields="attFields">
             <template slot="pic" slot-scope="data">
               <img alt="" :src="data.value">

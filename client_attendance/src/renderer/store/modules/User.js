@@ -95,7 +95,8 @@ const actions = {
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
   getUsername: state => state.userData.username,
-  getUserRole: state => state.userData.userRole
+  getUserRole: state => state.userData.userRole,
+  isAdmin: state => state.userData.userRole === 'admin'
 }
 
 export default {

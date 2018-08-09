@@ -22,6 +22,13 @@
                   </template>
               </b-table>
             </b-tab>
+            <b-tab v-for="check,i in getLateTime" :key="i" :title="'Check'+ (i+1)">
+              <b-table striped hover :items="attTableFilter(i)" :fields="attFields" v-on:row-hovered="rowHover">
+                  <template slot="time" slot-scope="data">
+                  {{moment(data.value).format('LTS')}}
+                  </template>
+              </b-table>
+            </b-tab>
             <b-tab title="All">
               <b-table striped hover :items="getStudents" :fields="attFields" v-on:row-hovered="rowHover">
                   <template slot="time" slot-scope="data">
@@ -74,7 +81,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAttTable', 'getStudent', 'getStudents', 'getStudentByRFID', 'getSendSMS', 'getReaderData']),
+    ...mapGetters(['getAttTable', 'getStudent', 'getStudents', 'getStudentByRFID', 'getSendSMS', 'getReaderData', 'getLateTime']),
     focused () {
       return document.activeElement
     }
@@ -83,6 +90,9 @@ export default {
     ...mapActions(['checkIn', 'setSendSMS', 'setReaderData', 'clearReaderData']),
     isToday (day) {
       return global.vm.moment(day).startOf('day').isSame(global.vm.moment(this.today).startOf('day'))
+    },
+    attTableFilter (checkID) {
+      return this.getAttTable.filter(a => a.checkID === checkID)
     },
     rowHover (item, index, event) {
       this.studentData = this.getStudent(item.id)

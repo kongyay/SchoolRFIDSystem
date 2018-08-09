@@ -3,9 +3,9 @@ import axios from 'axios'
 let baseURL
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  baseURL = 'http://localhost:3000/'
+  baseURL = 'http://192.168.2.45:44382'
 } else {
-  baseURL = 'http://localhost:3000/'
+  baseURL = 'http://192.168.2.45:44382'
 }
 
 export const API = axios.create({

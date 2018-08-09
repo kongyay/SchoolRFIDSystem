@@ -8,7 +8,7 @@
                         v-model="inputData" v-focus :placeholder="!useID ? 'Product RFID / Student Card RFID' : 'Product ID / Student ID'"
                         @keyup="onKeyboardInput" @blur="onBlurInput" />
             &thinsp;&thinsp;&thinsp;
-            <b-form-checkbox id="checkbox_ID" v-model="useID">
+            <b-form-checkbox id="checkbox_ID" v-if="isAdmin" v-model="useID">
                 Use ID instead
             </b-form-checkbox>
             <b-table striped hover :items="productsBuy" :fields="productFields">
@@ -81,7 +81,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getProducts', 'getProduct', 'getProductByRFID', 'getSellHistory', 'getStudent', 'getStudentByRFID', 'getReaderData']),
+    ...mapGetters(['getProducts', 'getProduct', 'getProductByRFID', 'getSellHistory', 'getStudent', 'getStudentByRFID', 'getReaderData', 'isAdmin']),
     focused () {
       return document.activeElement
     }
@@ -118,6 +118,7 @@ export default {
       }
     },
     confirmBuy () {
+      if (this.buyerData.balance - this.totalPrice() < 0) { return }
       let payload =
         {
           'buyer': this.buyerData.id,

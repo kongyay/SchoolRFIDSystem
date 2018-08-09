@@ -35,27 +35,25 @@ const state = {
 }
 
 const mutations = {
-  NEW_BUY (state, payload) {
-    this.sellHistory = payload
+  ADD_SELL_HISTORY (state, payload) {
+    payload.id = state.sellHistory.length
+    state.sellHistory.push(payload)
   }
 }
 const actions = {
-  setSellHistory ({
-    commit
-  }, payload) {
-
-  },
   newBuy ({
     commit,
     dispatch
   }, payload) {
-    commit('NEW_BUY', payload)
+    commit('ADD_SELL_HISTORY', payload)
     var body = payload
     console.log(body)
     let prodString = ''
     payload.products.forEach(p => {
       prodString += `${p.name}\t\tx${p.amount}\n`
     })
+
+    dispatch('addBuyHistory', payload)
 
     dispatch('changeBalance', {
       id: payload.buyer,

@@ -32,6 +32,9 @@
               <b-button size='sm' variant='success' to="/student_list">
                 Student List
               </b-button>
+              <b-button size='sm' variant='success' to="/student_analytics">
+                Attendance Analytics
+              </b-button>
             </b-card>
             <b-card header="Payment System" :img-src="require('../assets/cashier.jpg')">
               <b-button size='lg' variant='primary' to="/payment">

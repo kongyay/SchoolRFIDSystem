@@ -1,9 +1,28 @@
 const state = {
   isSendSMS: false,
-  lateTime: {
-    HH: '09',
-    mm: '00'
-  },
+  lateTime: [{
+    start: {
+      HH: '6',
+      mm: '00'
+    },
+    stop: {
+      HH: '9',
+      mm: '30'
+    }
+  }, {
+    start: {
+      HH: '14',
+      mm: '00'
+    },
+    stop: {
+      HH: '14',
+      mm: '30'
+    }
+  }],
+  currencyAvailable: [
+    '₺', '$', '€'
+  ],
+  currency: '₺',
 
   isReaderConnected: false,
   readerData: '',
@@ -26,6 +45,9 @@ const mutations = {
   },
   SET_LATETIME (state, data) {
     state.lateTime = data
+  },
+  SET_CURRENCY (state, data) {
+    state.currency = data
   }
 }
 
@@ -59,17 +81,25 @@ const actions = {
   }, data) {
     // do something async
     commit('SET_LATETIME', data)
+  },
+  setCurrency ({
+    commit
+  }, data) {
+    // do something async
+    commit('SET_CURRENCY', data)
   }
 
 }
 
 const getters = {
   getSendSMS: state => state.isSendSMS,
-  getLateTime: state => state.lateTime,
+  getLateTime: state => JSON.parse(JSON.stringify(state.lateTime)),
   getReaderConnected: state => state.isReaderConnected,
   getReaderData: state => state.readerData,
   getPID: state => state.readerPID,
-  getVID: state => state.readerVID
+  getVID: state => state.readerVID,
+  getCurrency: state => state.currency,
+  getCurrencyAvailable: state => state.currencyAvailable
 }
 
 export default {

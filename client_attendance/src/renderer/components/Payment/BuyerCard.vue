@@ -24,16 +24,23 @@
                 <hr>
                 <b-row>
                     <b-col sm="5">Balance: </b-col>
-                    <b-col sm="7">{{buyerData.balance}} TL</b-col>
+                    <b-col sm="7">{{buyerData.balance}} {{getCurrency}}</b-col>
+                </b-row>
+                <b-row>
+                    <b-col sm="5">Today's Allowance: </b-col>
+                    <b-col sm="7">{{buyerData.allowanceLeft}}/{{buyerData.allowance}} {{getCurrency}}</b-col>
                 </b-row>
             </b-tab>
             <b-tab title="History" >
-                <b-table striped hover :items="buyerData.history" :fields="['date','time','status']">
-                    <template slot="date" slot-scope="data">
-                        {{moment(data.item.time).format('YYYY-MM-DD')}}
+                <b-table striped hover :items="buyerData.buyHistory" :fields="['time','price','products']">
+                    <template slot="price" slot-scope="data">
+                        {{data.value}} {{getCurrency}}
                     </template>
                     <template slot="time" slot-scope="data">
                         {{moment(data.value).format("LTS")}}
+                    </template>
+                    <template slot="products" slot-scope="data">
+                        {{data.value.length}}
                     </template>
                 </b-table>
             </b-tab>
@@ -42,10 +49,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: [ 'buyerData' ],
   computed: {
+    ...mapGetters(['getCurrency']),
     presentTime () {
       return this.buyerData.history.filter((x) => x.status === 'present')
     },
