@@ -17,6 +17,14 @@ import axios from 'axios'
 import Notifications from 'vue-notification'
 import VueTimepicker from 'vue2-timepicker'
 
+import VueLodash from 'vue-lodash'
+
+import 'v2-datepicker/lib/index.css' // v2 need to improt css
+import V2Datepicker from 'v2-datepicker'
+
+Vue.use(V2Datepicker)
+Vue.use(VueLodash)
+
 Vue.use(Notifications)
 Vue.use(VueTimepicker)
 Vue.use(BootstrapVue)

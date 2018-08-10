@@ -22,7 +22,7 @@
                   </template>
               </b-table>
             </b-tab>
-            <b-tab v-for="check,i in getLateTime" :key="i" :title="'Check'+ (i+1)">
+            <b-tab v-for="(check,i) in getLateTime" :key="i" :title="'Check'+ (i+1)">
               <b-table striped hover :items="attTableFilter(i)" :fields="attFields" v-on:row-hovered="rowHover">
                   <template slot="time" slot-scope="data">
                   {{moment(data.value).format('LTS')}}
@@ -42,8 +42,9 @@
           </b-tabs>
           
         </b-col>
-        <b-col sm="6" v-if="studentData">
-            <StudentCard :studentData="studentData"/>
+        <b-col sm="6" >
+            <AttendanceAnalytics ref='analytics' class='analytics'></AttendanceAnalytics>
+            <StudentCard v-if="studentData" :studentData="studentData"/>
         </b-col>
     </b-row>
  </div>
@@ -53,6 +54,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import StudentCard from './Attendance/StudentCard'
+import AttendanceAnalytics from './AttendanceAnalytics'
 export default {
   name: 'Attendance',
   data () {
@@ -125,6 +127,7 @@ export default {
 
       if (student) {
         this.checkIn(student.id)
+        this.$refs.analytics.reGraph()
       } else {
         this.$notify({
           group: 'foo',
@@ -135,7 +138,7 @@ export default {
       this.clearReaderData()
     }
   },
-  components: {StudentCard}
+  components: {StudentCard, AttendanceAnalytics}
 }
 </script>
 
@@ -147,5 +150,8 @@ export default {
 #page-icon {
   position: absolute;
   float: left;
+}
+.analytics {
+  background-color: rgba(255, 255, 255, 0.616);
 }
 </style>

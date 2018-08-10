@@ -35,14 +35,17 @@
                     <b-col sm="7">{{studentData.teacher}}</b-col>
                 </b-row>
                 <hr>
-                <b-progress :max="studentData.history.length" class="mb-3">
+                <b-progress :max="studentHistory.length" class="mb-3">
                     <b-progress-bar variant="success" :value="presentTime.length" show-value animated></b-progress-bar>
                     <b-progress-bar variant="warning" :value="lateTime.length" show-value></b-progress-bar>
                     <b-progress-bar variant="danger" :value="absentTime.length" show-value></b-progress-bar>
                 </b-progress>
             </b-tab>
             <b-tab title="History" >
-                <b-table striped hover :items="studentData.history" :fields="['date','time','status']">
+              <b-form-checkbox id="checkbox_Student_History" v-model="showFirstCheck">
+                  Only show first check of each day
+              </b-form-checkbox>
+                <b-table striped hover :items="(!showFirstCheck)? studentHistory:firstCheckHistory" :fields="['date','time','status']">
                     <template slot="date" slot-scope="data">
                         {{moment(data.item.time).format('YYYY-MM-DD')}}
                     </template>
@@ -67,16 +70,27 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   props: [ 'studentData' ],
+  data () {
+    return {
+      showFirstCheck: true
+    }
+  },
   computed: {
-    ...mapGetters(['getStudentSendSMS']),
+    ...mapGetters(['getStudentSendSMS', 'getStudentHistory']),
+    studentHistory () {
+      return this.getStudentHistory(this.studentData.id)
+    },
     presentTime () {
-      return this.studentData.history.filter((x) => x.status === 'present')
+      return this.studentHistory.filter((x) => x.status === 'present')
     },
     lateTime () {
-      return this.studentData.history.filter((x) => x.status === 'late')
+      return this.studentHistory.filter((x) => x.status === 'late')
     },
     absentTime () {
-      return this.studentData.history.filter((x) => x.status === 'absent')
+      return this.studentHistory.filter((x) => x.status === 'absent')
+    },
+    firstCheckHistory () {
+      return this.studentHistory.filter((x) => x.checkID === 0)
     },
     isStudentSendSMS: {
       get () {

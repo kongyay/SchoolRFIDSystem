@@ -16,19 +16,6 @@ const state = {
     'allowanceLeft': 10,
     'isSendSMS': true,
     'pic': 'https://placeimg.com/100/100/people',
-    'history': [{
-      'time': new Date('2018-07-09T09:00:00+03:00'),
-      'checkID': 0,
-      'status': 'late'
-    }, {
-      'time': new Date('2018-07-10T07:00:00+03:00'),
-      'checkID': 1,
-      'status': 'present'
-    }, {
-      'time': new Date('2018-07-11T08:00:00+03:00'),
-      'checkID': 2,
-      'status': 'absent'
-    }],
     'buyHistory': []
   }, {
     'id': '1001',
@@ -44,14 +31,29 @@ const state = {
     'allowanceLeft': 10,
     'isSendSMS': false,
     'pic': 'https://placeimg.com/150/150/people',
-    'history': [{
-      'time': new Date('2018-07-12T09:30:00+03:00'),
-      'checkID': 2,
-      'status': 'late'
-    }],
     'buyHistory': []
   }],
-  attTable: [],
+  attTable: [{
+    'id': '1000',
+    'time': new Date('2018-07-09T09:00:00+03:00'),
+    'checkID': 0,
+    'status': 'late'
+  }, {
+    'id': '1000',
+    'time': new Date('2018-07-10T07:00:00+03:00'),
+    'checkID': 1,
+    'status': 'present'
+  }, {
+    'id': '1000',
+    'time': new Date('2018-07-11T08:00:00+03:00'),
+    'checkID': 0,
+    'status': 'absent'
+  }, {
+    'id': '1001',
+    'time': new Date('2018-07-12T09:30:00+03:00'),
+    'checkID': 1,
+    'status': 'late'
+  }],
   checkID: 0
 }
 
@@ -62,7 +64,6 @@ const mutations = {
   }) {
     let cs = state.students[index]
     cs.today = newObj
-    cs.history.push(newObj)
     state.attTable.push(newObj)
   },
   CHANGE_BALANCE (state, {
@@ -97,15 +98,21 @@ const actions = {
     let studentP = state.students.reduce((sum, s) => (s.today && s.today.status === 'present') ? sum + 1 : sum, 0)
     let studentA = state.students.length - studentP
     let index = state.students.findIndex((s) => s.id === id)
+
+    // if student has any status today
     if (state.students[index].today) {
-      global.vm.$notify({
-        group: 'att',
-        type: 'error',
-        duration: 1000,
-        title: `[${id}] is either already in school or taking leave today`,
-        text: `Present: ${studentP} | Absent: ${studentA}`
-      })
-      return
+      // if student takes leave or already checked this time
+      if (state.students[index].today.status === 'leave' ||
+        (state.students[index].today.checkID === state.checkID)) {
+        global.vm.$notify({
+          group: 'att',
+          type: 'error',
+          duration: 1000,
+          title: `[${id}] is either already in checked or taking leave today`,
+          text: `Present: ${studentP} | Absent: ${studentA}`
+        })
+        return
+      }
     }
 
     let currentTime = new Date()
@@ -222,7 +229,8 @@ const getters = {
   getStudent: state => id => state.students.find((s) => s.id === id),
   getStudentByRFID: state => rfid => state.students.find((s) => s.rfid === rfid),
   getStudentSendSMS: state => id => state.students.find((s) => s.id === id).isSendSMS,
-  getCheckID: state => state.checkID
+  getCheckID: state => state.checkID,
+  getStudentHistory: state => id => state.attTable.filter((a) => a.id === id)
 }
 
 export default {
