@@ -110,7 +110,7 @@ export default {
           datasets: [
             {
               label: 'Student',
-              backgroundColor: '#f00',
+              backgroundColor: '#A9C338',
               data: dataset
             }
           ]
@@ -122,7 +122,7 @@ export default {
           datasets: [
             {
               label: 'Student',
-              backgroundColor: '#f00',
+              backgroundColor: '#A9C338',
               data: dataset
             }
           ]

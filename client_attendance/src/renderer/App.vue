@@ -78,8 +78,8 @@ html {
   height: 100%;
   background: radial-gradient(
     ellipse at top left,
-    rgb(255, 238, 219) 40%,
-    rgba(229, 229, 229, 0.9) 100%
+    rgb(240, 240, 240) 40%,
+    rgba(223, 223, 223, 0.9) 100%
   );
 }
 

@@ -25,7 +25,7 @@
             <option v-for="cur, i in getCurrencyAvailable" :key="i" :value="cur">{{cur}}</option>
         </b-form-select>
         <hr>
-        <b-button @click="save" variant="primary">Save</b-button>
+        <b-button @click="save" variant="warning">Save</b-button>
         <b-button @click="logout" variant="sm">Sign out</b-button>
      </b-container>
 </template>

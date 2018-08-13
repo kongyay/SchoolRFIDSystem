@@ -16,7 +16,7 @@
           
           <b-tabs>
             <b-tab title="Today" active>
-              <b-table striped hover :items="getAttTable" :fields="attFields" v-on:row-hovered="rowHover">
+              <b-table striped hover :items="getAttTableToday" :fields="attFields" v-on:row-hovered="rowHover">
                   <template slot="time" slot-scope="data">
                   {{moment(data.value).format('LTS')}}
                   </template>
@@ -29,7 +29,7 @@
                   </template>
               </b-table>
             </b-tab>
-            <b-tab title="All">
+            <b-tab title="All Students">
               <b-table striped hover :items="getStudents" :fields="attFields" v-on:row-hovered="rowHover">
                   <template slot="time" slot-scope="data">
                   {{  data.item.today && data.item.today.status === 'present' ? moment(data.item.today.time).format('LTS') : '-' }}
@@ -43,7 +43,7 @@
           
         </b-col>
         <b-col sm="6" >
-            <AttendanceAnalytics ref='analytics' class='analytics'></AttendanceAnalytics>
+            <AttendanceAnalytics v-if='isAdmin' ref='analytics' class='analytics'></AttendanceAnalytics>
             <StudentCard v-if="studentData" :studentData="studentData"/>
         </b-col>
     </b-row>
@@ -83,9 +83,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAttTable', 'getStudent', 'getStudents', 'getStudentByRFID', 'getSendSMS', 'getReaderData', 'getLateTime']),
+    ...mapGetters(['getAttTable', 'getStudent', 'getStudents', 'getStudentByRFID', 'getSendSMS', 'getReaderData', 'getLateTime', 'isAdmin']),
     focused () {
       return document.activeElement
+    },
+    getAttTableToday () {
+      return this.getAttTable.filter((h) => this.isToday(h.time))
     }
   },
   methods: {
@@ -94,7 +97,7 @@ export default {
       return global.vm.moment(day).startOf('day').isSame(global.vm.moment(this.today).startOf('day'))
     },
     attTableFilter (checkID) {
-      return this.getAttTable.filter(a => a.checkID === checkID)
+      return this.getAttTableToday.filter(a => a.checkID === checkID)
     },
     rowHover (item, index, event) {
       this.studentData = this.getStudent(item.id)
@@ -127,7 +130,7 @@ export default {
 
       if (student) {
         this.checkIn(student.id)
-        this.$refs.analytics.reGraph()
+        if (this.isAdmin) { this.$refs.analytics.reGraph() }
       } else {
         this.$notify({
           group: 'foo',

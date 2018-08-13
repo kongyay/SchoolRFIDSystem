@@ -95,7 +95,7 @@ const actions = {
     rootGetters
   },
   id) {
-    let studentP = state.students.reduce((sum, s) => (s.today && s.today.status === 'present') ? sum + 1 : sum, 0)
+    let studentP = state.students.reduce((sum, s) => (s.today && (s.today.status === 'present' || s.today.status === 'late')) ? sum + 1 : sum, 0)
     let studentA = state.students.length - studentP
     let index = state.students.findIndex((s) => s.id === id)
 

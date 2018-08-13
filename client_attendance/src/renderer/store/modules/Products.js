@@ -16,7 +16,7 @@ const state = {
     'rfid': '0000000000',
     'name': 'Top-up card',
     'type': 'topup',
-    'price': 100
+    'price': -100
   }],
   sellHistory: [{
     'id': '1',

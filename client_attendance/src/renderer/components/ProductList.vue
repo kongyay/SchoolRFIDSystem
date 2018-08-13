@@ -4,7 +4,7 @@
         <b-input type="text" id="searchField" placeholder="Search.." v-model="searchTxt" v-focus></b-input>
         <b-table striped hover :items="displayProducts" :fields="attFields" :sort-compare="sort_compare">
             <template slot="stat" slot-scope="data">
-              <b-progress :value="countStat(data.item.id)" show-value :max="10"></b-progress>
+              <b-progress :value="countStat(data.item.id)" show-value :max="20"></b-progress>
             </template>
           
             <template slot="edit" slot-scope="data">
@@ -104,7 +104,10 @@ export default {
       }
     },
     countStat (id) {
-      return this.getSellHistory.filter(e => e.products.find(p => p.id === id)).length
+      return this.getSellHistory.reduce((sum, e) => {
+        let i = e.products.find(p => p.id === id)
+        return sum + ((i) ? i.amount : 0)
+      }, 0)
     },
     setModal (product) {
       this.edit_id = product.id

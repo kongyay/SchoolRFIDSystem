@@ -9,7 +9,7 @@
             <b-col sm="9"><b-form-input v-model="password" id="form-password" type="password"></b-form-input></b-col>
         </b-row>
 
-      <b-button :disabled="username===''||password===''" type="submit" variant="primary">Sign in</b-button>
+      <b-button :disabled="username===''||password===''" type="submit" variant="warning">Sign in</b-button>
     </b-form>
 </template>
 

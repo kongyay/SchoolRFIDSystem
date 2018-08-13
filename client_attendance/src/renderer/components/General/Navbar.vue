@@ -1,9 +1,12 @@
 <template>
-<b-navbar id="theOnlyNav" toggleable="sm" type="dark" variant="info" sticky>
+<b-navbar id="theOnlyNav" toggleable="sm" type="dark" sticky>
 
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-  <b-navbar-brand to="/">School RFID System | </b-navbar-brand>
+  <b-navbar-brand to="/">
+  <img id='logo' src='../../assets/only-logo.png' />
+  School System
+  </b-navbar-brand>
 
   <b-collapse is-nav id="nav_collapse">
 
@@ -71,5 +74,12 @@ export default {
 }
 .good {
   color: green;
+}
+#logo {
+  width: 30px;
+  height: 30px;
+}
+#theOnlyNav {
+  background: #3a4700;
 }
 </style>
