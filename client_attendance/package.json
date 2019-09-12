@@ -59,7 +59,7 @@
     "bootstrap-4": "^4.0.0",
     "bootstrap-vue": "^2.0.0-rc.11",
     "chart.js": "^2.7.2",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "moment": "^2.22.2",
     "popper.js": "^1.14.3",
     "usb-detection": "^3.1.0",
